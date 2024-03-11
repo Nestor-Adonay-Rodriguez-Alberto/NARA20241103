@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+@model IEnumerable<DetalleFamiliares>
+<input type="hidden" name="accion" value="@ViewBag.Accion" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parentesco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dui)
+            </th>
+            <th>
+                @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
+                {
+                    <button type="submit" class="btn btn-primary" formaction="@Url.Action("AgregarDetalles")">Agregar</button>
+                }
+
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @{
+            int index = -1;
+        }
+        @if (Model != null && Model.Count() > 0)
+        {
+            @foreach (var item in Model)
+            {
+                index++;
+                // var hidde = "table";
+                if (item.IdDetalleFamilia > -1)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" value="@item.IdDetalleFamilia" name="DetalleFamiliares[@index].IdDetalleFamilia">
+                            <input type="hidden" value="@item.FiadorDetalle" name="DetalleFamiliares[@index].FiadorDetalle">
+                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Nombre" value="@item.Nombre">
+                        </td>
+                        <td>
+                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Parentesco" value="@item.Parentesco">
+                        </td>
+                        <td>
+                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Telefono" value="@item.Telefono">
+                        </td>
+                        <td>
+                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Dui" value="@item.Dui">
+                        </td>
+                        <td>
+                            @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
+                            {
+                                <button name="index" value="@index" class="btn btn-primary" type="submit" formaction="@Url.Action("EliminarDetalles")">Eliminar</button>
+                            }
+
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr style="display:none">
+                        <td>
+                            <input type="hidden" value="@item.IdDetalleFamilia" name="DetalleFamiliares[@index].IdDetalleFamilia">
+                            <input type="hidden" value="@item.FiadorDetalle" name="DetalleFamiliares[@index].FiadorDetalle">
+                            <input type="hidden" name="DetalleFamiliares[@index].Nombre" value="@item.Nombre">
+                            <input type="hidden" name="DetalleFamiliares[@index].Parentesco" value="@item.Parentesco">
+                            <input type="hidden" name="DetalleFamiliares[@index].Telefono" value="@item.Telefono">
+                            <input type="hidden" name="DetalleFamiliares[@index].Dui" value="@item.Dui">
+                        </td>
+                    </tr>
+                }
+            }
+        }
+
+    </tbody>
+</table>
+@if (ViewBag.Accion == "Details" || ViewBag.Accion == "Delete")
+{
+    <script>
+        const readOnly = document.querySelectorAll("*[data-readonly]");
+        for (var i = 0; i < readOnly.length; i++) {
+            const item = readOnly[i];
+            item.setAttribute("readonly", true);
+        }
+
+    </script>
+}

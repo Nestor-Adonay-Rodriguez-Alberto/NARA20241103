@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using NARA20241103.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<NARA20241103BDContext>(x=> x.UseSqlServer(builder.Configuration.GetConnectionString("Cadena_Conexion")));
 
 var app = builder.Build();
 

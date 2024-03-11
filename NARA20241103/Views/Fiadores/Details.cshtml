@@ -1,0 +1,46 @@
+﻿@model NARA20241103.Models.Fiador
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h5>Datos Del Fiador</h5>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Correlativo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Correlativo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DineroFiado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DineroFiado)
+        </dd>
+    </dl>
+    <div class="row row-cols-md-12">
+        @await Html.PartialAsync("_DetalleFamiliarees", Model.DetalleFamiliares)
+    </div>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdFiador">Edit</a> |
+    <a asp-action="Index">Cancelart</a>
+</div>
