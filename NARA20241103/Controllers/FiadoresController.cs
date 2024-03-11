@@ -110,11 +110,14 @@ namespace NARA20241103.Controllers
                 return NotFound();
             }
 
-            var fiador = await _context.Fiadores.FindAsync(id);
+            var fiador = await _context.Fiadores
+                .Include(s => s.DetalleFamiliares)
+                .FirstOrDefaultAsync(m => m.IdFiador == id);
             if (fiador == null)
             {
                 return NotFound();
             }
+            ViewBag.Accion = "Edit";
             return View(fiador);
         }
 
