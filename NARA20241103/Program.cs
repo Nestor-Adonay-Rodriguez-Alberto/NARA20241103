@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<NARA20241103BDContext>(x=> x.UseSqlServer(builder.Configuration.GetConnectionString("Cadena_Conexion_Local")));
+builder.Services.AddDbContext<NARA20241103BDContext>(x=> x.UseSqlServer(builder.Configuration.GetConnectionString("Cadena_Conexion")));
 
 var app = builder.Build();
 
