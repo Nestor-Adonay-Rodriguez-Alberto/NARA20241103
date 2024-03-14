@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Fiador</h4>
+<h5>Datos Del Fiador</h5>
 <hr />
 
 <form asp-action="Edit">
@@ -49,6 +49,7 @@
     </div>
 
     <!-- VISTA PARTIAL -->
+    <br />    <h5>Datos Del Familiar</h5>
     <div class="row row-cols-md-12">
         @await Html.PartialAsync("_DetalleFamiliarees", Model.DetalleFamiliares)
     </div>
