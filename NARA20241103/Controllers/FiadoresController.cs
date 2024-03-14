@@ -126,34 +126,72 @@ namespace NARA20241103.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFiador,Nombre,Fecha,Correlativo,DineroFiado")] Fiador fiador)
+        public async Task<IActionResult> Edit([Bind("IdFiador,Nombre,Fecha,Correlativo,DineroFiado,DetalleFamiliares")] Fiador fiador)
         {
-            if (id != fiador.IdFiador)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                // Obtener Objeto BD Y Agregarle Los Atributos Que Tengo En La Vista
+                // Obtener los datos de la base de datos que van a ser modificados
+                var Objeto_BD = await _context.Fiadores
+                        .Include(s => s.DetalleFamiliares)
+                        .FirstAsync(s => s.IdFiador == fiador.IdFiador);
+
+                Objeto_BD.Nombre = fiador.Nombre;
+                Objeto_BD.Fecha = fiador.Fecha;
+                Objeto_BD.Correlativo = fiador.Correlativo;
+                Objeto_BD.DineroFiado = fiador.DineroFiado;
+
+
+                // MODIFICAR DATOS DEL DETALLE 
+                var detUpdate = fiador.DetalleFamiliares.Where(s => s.IdDetalleFamilia > 0);
+                foreach (var d in detUpdate)
                 {
-                    _context.Update(fiador);
-                    await _context.SaveChangesAsync();
+                    var det = Objeto_BD.DetalleFamiliares.FirstOrDefault(s => s.IdDetalleFamilia == d.IdDetalleFamilia);
+                    det.Nombre = d.Nombre;
+                    det.Parentesco = d.Parentesco;
+                    det.Telefono = d.Telefono;
+                    det.Dui = d.Dui;
                 }
-                catch (DbUpdateConcurrencyException)
+
+
+                // AGREGAR FILAS DE DETALLES
+                var detNew = fiador.DetalleFamiliares.Where(s => s.IdDetalleFamilia == 0);
+                foreach (var d in detNew)
                 {
-                    if (!FiadorExists(fiador.IdFiador))
+
+                    Objeto_BD.DetalleFamiliares.Add(d);
+                }
+
+
+                // ELIMINA FILAS DEL DETALLE
+                var delDet = fiador.DetalleFamiliares.Where(s => s.IdDetalleFamilia < 0).ToList();
+                if (delDet != null && delDet.Count > 0)
+                {
+                    foreach (var d in delDet)
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        d.IdDetalleFamilia = d.IdDetalleFamilia * -1;
+                        var det = Objeto_BD.DetalleFamiliares.FirstOrDefault(s => s.IdDetalleFamilia == d.IdDetalleFamilia);
+                        _context.Remove(det);
+                        // facturaUpdate.DetFacturaVenta.Remove(det);
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                // Aplicar esos cambios a la base de datos
+                _context.Update(Objeto_BD);
+                await _context.SaveChangesAsync();
             }
-            return View(fiador);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FiadorExists(fiador.IdFiador))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Fiadores/Delete/5

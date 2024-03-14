@@ -4,37 +4,40 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalles</h1>
+<h1>Detalles</h1><br />
 
 <div>
     <h5>Datos Del Fiador</h5>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+        <dt class="col-sm-2">
+            @Html.DisplayName("NOMBRE:")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
+        <dt class="col-sm-2">
+            @Html.DisplayName("FECHA:")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Correlativo)
+        <dt class="col-sm-2">
+            @Html.DisplayName("CORRELATIVO:")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Correlativo)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DineroFiado)
+        <dt class="col-sm-2">
+            @Html.DisplayName("DINERO FIADO:")
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DineroFiado)
         </dd>
     </dl>
+
+    <br /><h5>Datos Del Familiar</h5>
+    <hr />
     <div class="row row-cols-md-12">
         @await Html.PartialAsync("_DetalleFamiliarees", Model.DetalleFamiliares)
     </div>

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<NARA20241103BDContext>(x=> x.UseSqlServer(builder.Configuration.GetConnectionString("Cadena_Conexion")));
+builder.Services.AddDbContext<NARA20241103BDContext>(x=> x.UseSqlServer(builder.Configuration.GetConnectionString("Cadena_Conexion_Local")));
 
 var app = builder.Build();
 
@@ -18,7 +18,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

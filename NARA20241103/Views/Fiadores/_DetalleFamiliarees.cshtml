@@ -10,16 +10,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayName("NOMBRE")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Parentesco)
+                @Html.DisplayName("PARENTESCO")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                @Html.DisplayName("TELEFONO")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dui)
+                @Html.DisplayName("DUI")
             </th>
             <th>
                 @if (ViewBag.Accion == "Create" || ViewBag.Accion == "Edit")
@@ -47,7 +47,8 @@
                         <td>
                             <input type="hidden" value="@item.IdDetalleFamilia" name="DetalleFamiliares[@index].IdDetalleFamilia">
                             <input type="hidden" value="@item.FiadorDetalle" name="DetalleFamiliares[@index].FiadorDetalle">
-                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Nombre" value="@item.Nombre">
+                            <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Nombre" value="@item.Nombre" >
+
                         </td>
                         <td>
                             <input class="form-control" data-readonly type="text" name="DetalleFamiliares[@index].Parentesco" value="@item.Parentesco">

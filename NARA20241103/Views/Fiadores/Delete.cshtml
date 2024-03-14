@@ -11,30 +11,32 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayName("NOMBRE:")
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.DisplayName("FECHA:")
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Correlativo)
+            @Html.DisplayName("CORRELATIVO:")
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Correlativo)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DineroFiado)
+            @Html.DisplayName("DINERO FIADO:")
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DineroFiado)
         </dd>
     </dl>
+    <br /><h5>Datos Del Familiar</h5>
+    <hr />
     <div class="row row-cols-md-12">
         @await Html.PartialAsync("_DetalleFamiliarees", Model.DetalleFamiliares)
     </div>

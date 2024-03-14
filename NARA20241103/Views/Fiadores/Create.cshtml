@@ -45,9 +45,10 @@
             <span asp-validation-for="DineroFiado" class="text-danger"></span>
         </div>
 
-    </div>
+    </div><br />
 
     <!-- VISTA PARTIAL -->
+    <h5>Datos Del Familiar</h5>
     <div class="row row-cols-md-12">
         @await Html.PartialAsync("_DetalleFamiliarees", Model.DetalleFamiliares)
     </div>
